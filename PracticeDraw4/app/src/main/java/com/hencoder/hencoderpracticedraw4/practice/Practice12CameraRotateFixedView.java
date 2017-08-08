@@ -3,7 +3,9 @@ package com.hencoder.hencoderpracticedraw4.practice;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Camera;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.support.annotation.Nullable;
@@ -17,6 +19,8 @@ public class Practice12CameraRotateFixedView extends View {
     Bitmap bitmap;
     Point point1 = new Point(200, 200);
     Point point2 = new Point(600, 200);
+    Matrix matrix = new Matrix();
+    Camera camera = new Camera();
 
     public Practice12CameraRotateFixedView(Context context) {
         super(context);
@@ -38,7 +42,37 @@ public class Practice12CameraRotateFixedView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+
+        int bitmapWidth = bitmap.getWidth();
+        int bitmapHeight = bitmap.getHeight();
+        int center1X = point1.x + bitmapWidth / 2;
+        int center1Y = point1.y + bitmapHeight / 2;
+        int center2X = point2.x + bitmapWidth / 2;
+        int center2Y = point2.y + bitmapHeight / 2;
+
+        camera.save();
+        matrix.reset();
+        camera.rotateX(30);
+        camera.getMatrix(matrix);
+        matrix.preTranslate(-center1X, -center1Y);
+        matrix.postTranslate(center1X, center1Y);
+        camera.restore();
+        canvas.save();
+        canvas.concat(matrix);
         canvas.drawBitmap(bitmap, point1.x, point1.y, paint);
+        canvas.restore();
+
+
+        camera.save();
+        matrix.reset();
+        camera.rotateY(30);
+        camera.getMatrix(matrix);
+        matrix.preTranslate(-center2X, -center2Y);
+        matrix.postTranslate(center2X, center2Y);
+        camera.restore();
+        canvas.save();
+        canvas.concat(matrix);
         canvas.drawBitmap(bitmap, point2.x, point2.y, paint);
+        canvas.restore();
     }
 }
