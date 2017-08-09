@@ -32,6 +32,7 @@ public class Practice01DrawTextView extends View {
         super.onDraw(canvas);
 
         // 使用 drawText() 来绘制文字
+        canvas.drawText(text, 50, 100, paint);
         // 文字坐标： (50, 100)
     }
 }
