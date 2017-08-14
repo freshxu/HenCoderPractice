@@ -50,8 +50,9 @@ public class Sample13CameraRotateHittingFaceView extends View {
         animator.setRepeatCount(ValueAnimator.INFINITE);
 
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        float newZ = - displayMetrics.density * 6;
+        float newZ = -displayMetrics.density * 6;
         camera.setLocation(0, 0, newZ);
+
     }
 
     @Override
