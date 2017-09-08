@@ -13,6 +13,7 @@ import android.graphics.Point;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
@@ -51,19 +52,21 @@ public class Practice13CameraRotateHittingFaceView extends View {
 
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         float newZ = -displayMetrics.density * 6;
+        Log.i("TAG","屏幕密度"+displayMetrics.density);
+        Log.i("TAG","Z轴值"+newZ);
         camera.setLocation(0, 0, newZ);
     }
 
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        animator.start();
+        //animator.start();
     }
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        animator.end();
+        //animator.end();
     }
 
     @SuppressWarnings("unused")
@@ -83,13 +86,14 @@ public class Practice13CameraRotateHittingFaceView extends View {
 
         camera.save();
         matrix.reset();
-        camera.rotateX(degree);
-        camera.getMatrix(matrix);
-        camera.restore();
-        matrix.preTranslate(-centerX, -centerY);
-        matrix.postTranslate(centerX, centerY);
+
+//        camera.getMatrix(matrix);
+//        camera.restore();
+//        matrix.preTranslate(-centerX, -centerY);
+//        matrix.postTranslate(centerX, centerY);
         canvas.save();
-        canvas.concat(matrix);
+        //canvas.concat(matrix);
+        camera.rotateX(30);
         canvas.drawBitmap(bitmap, point.x, point.y, paint);
         canvas.restore();
     }
