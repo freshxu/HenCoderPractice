@@ -1,5 +1,7 @@
 package com.hencoder.hencoderpracticedraw6.practice;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -9,10 +11,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.hencoder.hencoderpracticedraw6.R;
+import com.hencoder.hencoderpracticedraw6.Utils;
 
 public class Practice05MultiProperties extends ConstraintLayout {
     Button animateBt;
     ImageView imageView;
+    int index = 0;
 
     public Practice05MultiProperties(Context context) {
         super(context);
@@ -39,6 +43,30 @@ public class Practice05MultiProperties extends ConstraintLayout {
             @Override
             public void onClick(View v) {
                 // TODO 在这里处理点击事件，同时对多个属性做动画
+                if (index == 0) {
+
+                    ObjectAnimator scaleX = ObjectAnimator.ofFloat(imageView, "scaleX", 1f);
+                    ObjectAnimator scaleY = ObjectAnimator.ofFloat(imageView, "scaleY", 1f);
+                    ObjectAnimator alpha = ObjectAnimator.ofFloat(imageView, "alpha", 1);
+                    ObjectAnimator translationX = ObjectAnimator.ofFloat(imageView, "translationX", Utils.dpToPixel(200));
+                    ObjectAnimator rotation = ObjectAnimator.ofFloat(imageView, "rotation", 360);
+                    AnimatorSet set = new AnimatorSet();
+                    set.play(scaleX).with(scaleY).with(alpha).with(translationX).with(rotation);
+                    set.setDuration(500);
+                    set.start();
+                    index = 1;
+                }
+                if (index == 1) {
+                    imageView.animate()
+                            .scaleX(0)
+                            .scaleY(0)
+                            .alpha(0)
+                            .translationX(0)
+                            .rotation(0)
+                            .start();
+                    index = 0;
+                }
+
             }
         });
     }
