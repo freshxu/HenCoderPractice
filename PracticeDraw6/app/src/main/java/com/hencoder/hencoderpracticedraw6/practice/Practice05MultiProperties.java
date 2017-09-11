@@ -6,6 +6,7 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -52,21 +53,19 @@ public class Practice05MultiProperties extends ConstraintLayout {
                     ObjectAnimator rotation = ObjectAnimator.ofFloat(imageView, "rotation", 360);
                     AnimatorSet set = new AnimatorSet();
                     set.play(scaleX).with(scaleY).with(alpha).with(translationX).with(rotation);
-                    set.setDuration(500);
                     set.start();
                     index = 1;
-                }
-                if (index == 1) {
+                } else if (index == 1) {
                     imageView.animate()
                             .scaleX(0)
                             .scaleY(0)
                             .alpha(0)
                             .translationX(0)
-                            .rotation(0)
-                            .start();
+                            .rotation(0);
                     index = 0;
                 }
 
+                Log.i("TAG", index + "");
             }
         });
     }
